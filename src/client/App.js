@@ -6,7 +6,7 @@ import { fetchCurrentUser } from "./actions/index";
 
 function App({ route }) {
   return (
-    <div>
+    <div className="wrapper">
       <Header />
       {renderRoutes(route.routes)}
     </div>

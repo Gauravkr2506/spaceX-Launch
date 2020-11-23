@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 9);
+/******/ 	return __webpack_require__(__webpack_require__.s = 8);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -71,6 +71,24 @@ module.exports = require("react");
 
 /***/ }),
 /* 1 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-router-config");
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-router-dom");
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-redux");
+
+/***/ }),
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -79,7 +97,7 @@ module.exports = require("react");
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.fetchAdmins = exports.fetchCurrentUser = exports.fetchUsers = exports.FETCH_ADMINS = exports.FETCH_CURRENT_USER = exports.FETCH_USERS = undefined;
+exports.fetchSpaceXLaunchClient = exports.fetchSpaceXLaunch = exports.fetchAdmins = exports.fetchCurrentUser = exports.fetchUsers = exports.MODIFY_SPACE_X_LAUNCH_DATA = exports.FETCH_ADMINS = exports.FETCH_CURRENT_USER = exports.FETCH_USERS = undefined;
 
 var _axios = __webpack_require__(6);
 
@@ -92,6 +110,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 var FETCH_USERS = exports.FETCH_USERS = "FETCH_USERS";
 var FETCH_CURRENT_USER = exports.FETCH_CURRENT_USER = "FETCH_CURRENT_USER";
 var FETCH_ADMINS = exports.FETCH_ADMINS = "FETCH_ADMINS";
+
+var MODIFY_SPACE_X_LAUNCH_DATA = exports.MODIFY_SPACE_X_LAUNCH_DATA = "MODIFY_SPACE_X_LAUNCH_DATA";
 
 var fetchUsers = exports.fetchUsers = function fetchUsers() {
   return function () {
@@ -193,23 +213,77 @@ var fetchAdmins = exports.fetchAdmins = function fetchAdmins() {
   }();
 };
 
-/***/ }),
-/* 2 */
-/***/ (function(module, exports) {
+var fetchSpaceXLaunch = exports.fetchSpaceXLaunch = function fetchSpaceXLaunch() {
+  var param = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "?limit=10";
+  return function () {
+    var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(dispatch, getState, api) {
+      var res;
+      return regeneratorRuntime.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              console.log("xxxxxxxxxxxxxxxxxxxxx");
+              console.log(param);
+              _context4.next = 4;
+              return api.get("/v3/launches" + param);
 
-module.exports = require("react-redux");
+            case 4:
+              res = _context4.sent;
 
-/***/ }),
-/* 3 */
-/***/ (function(module, exports) {
+              dispatch({
+                type: MODIFY_SPACE_X_LAUNCH_DATA,
+                payload: { launch_list: res.data }
+              });
 
-module.exports = require("react-router-dom");
+            case 6:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4, undefined);
+    }));
 
-/***/ }),
-/* 4 */
-/***/ (function(module, exports) {
+    return function (_x11, _x12, _x13) {
+      return _ref4.apply(this, arguments);
+    };
+  }();
+};
 
-module.exports = require("react-router-config");
+var fetchSpaceXLaunchClient = exports.fetchSpaceXLaunchClient = function fetchSpaceXLaunchClient() {
+  var param = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "?limit=10";
+  return function () {
+    var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(dispatch, getState, api) {
+      var res;
+      return regeneratorRuntime.wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              console.log("xxxxxxxxxxxxxxxxxxxxx");
+              console.log(param);
+              _context5.next = 4;
+              return _axios2.default.get("https://api.spacexdata.com/v3/launches" + param);
+
+            case 4:
+              res = _context5.sent;
+
+              dispatch({
+                type: MODIFY_SPACE_X_LAUNCH_DATA,
+                payload: { launch_list: res.data }
+              });
+
+            case 6:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5, undefined);
+    }));
+
+    return function (_x15, _x16, _x17) {
+      return _ref5.apply(this, arguments);
+    };
+  }();
+};
 
 /***/ }),
 /* 5 */
@@ -223,40 +297,41 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+// import UsersListPage from "./pages/UsersListPage";
 
-var _App = __webpack_require__(13);
+
+var _App = __webpack_require__(12);
 
 var _App2 = _interopRequireDefault(_App);
 
-var _HomePage = __webpack_require__(15);
+var _HomePage = __webpack_require__(14);
 
 var _HomePage2 = _interopRequireDefault(_HomePage);
 
-var _UsersListPage = __webpack_require__(16);
-
-var _UsersListPage2 = _interopRequireDefault(_UsersListPage);
-
-var _NotFoundPage = __webpack_require__(17);
+var _NotFoundPage = __webpack_require__(16);
 
 var _NotFoundPage2 = _interopRequireDefault(_NotFoundPage);
 
-var _AdminsList = __webpack_require__(18);
-
-var _AdminsList2 = _interopRequireDefault(_AdminsList);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// import AdminsListPage from "./pages/AdminsList";
 
 exports.default = [_extends({}, _App2.default, {
   routes: [_extends({}, _HomePage2.default, {
     path: "/",
     exact: true
-  }), _extends({}, _UsersListPage2.default, {
-    path: "/users",
-    exact: true
-  }), _extends({}, _AdminsList2.default, {
-    path: "/admins",
-    exact: true
-  }), _extends({}, _NotFoundPage2.default)]
+  }),
+  // {
+  //   ...UsersListPage,
+  //   path: "/users",
+  //   exact: true,
+  // },
+  // {
+  //   ...AdminsListPage,
+  //   path: "/admins",
+  //   exact: true,
+  // },
+  _extends({}, _NotFoundPage2.default)]
 })];
 
 /***/ }),
@@ -269,30 +344,24 @@ module.exports = require("axios");
 /* 7 */
 /***/ (function(module, exports) {
 
-module.exports = require("react-helmet");
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports) {
-
 module.exports = require("redux");
 
 /***/ }),
-/* 9 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(10);
+__webpack_require__(9);
 
-var _express = __webpack_require__(11);
+var _express = __webpack_require__(10);
 
 var _express2 = _interopRequireDefault(_express);
 
-var _reactRouterConfig = __webpack_require__(4);
+var _reactRouterConfig = __webpack_require__(1);
 
-var _expressHttpProxy = __webpack_require__(12);
+var _expressHttpProxy = __webpack_require__(11);
 
 var _expressHttpProxy2 = _interopRequireDefault(_expressHttpProxy);
 
@@ -300,15 +369,15 @@ var _Routes = __webpack_require__(5);
 
 var _Routes2 = _interopRequireDefault(_Routes);
 
-var _renderer = __webpack_require__(20);
+var _renderer = __webpack_require__(17);
 
 var _renderer2 = _interopRequireDefault(_renderer);
 
-var _createStore = __webpack_require__(23);
+var _createStore = __webpack_require__(21);
 
 var _createStore2 = _interopRequireDefault(_createStore);
 
-var _reactRouterDom = __webpack_require__(3);
+var _reactRouterDom = __webpack_require__(2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -362,22 +431,66 @@ app.listen(port, function () {
 });
 
 /***/ }),
-/* 10 */
+/* 9 */
 /***/ (function(module, exports) {
 
 module.exports = require("babel-polyfill");
 
 /***/ }),
-/* 11 */
+/* 10 */
 /***/ (function(module, exports) {
 
 module.exports = require("express");
 
 /***/ }),
-/* 12 */
+/* 11 */
 /***/ (function(module, exports) {
 
 module.exports = require("express-http-proxy");
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterConfig = __webpack_require__(1);
+
+var _Header = __webpack_require__(13);
+
+var _Header2 = _interopRequireDefault(_Header);
+
+var _index = __webpack_require__(4);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function App(_ref) {
+  var route = _ref.route;
+
+  return _react2.default.createElement(
+    "div",
+    { className: "wrapper" },
+    _react2.default.createElement(_Header2.default, null),
+    (0, _reactRouterConfig.renderRoutes)(route.routes)
+  );
+}
+
+exports.default = {
+  component: App,
+  loadData: function loadData(_ref2) {
+    var dispatch = _ref2.dispatch;
+    return dispatch((0, _index.fetchCurrentUser)());
+  }
+};
 
 /***/ }),
 /* 13 */
@@ -394,83 +507,19 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterConfig = __webpack_require__(4);
+var _reactRouterDom = __webpack_require__(2);
 
-var _Header = __webpack_require__(14);
-
-var _Header2 = _interopRequireDefault(_Header);
-
-var _index = __webpack_require__(1);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function App(_ref) {
-  var route = _ref.route;
-
-  return _react2.default.createElement(
-    "div",
-    null,
-    _react2.default.createElement(_Header2.default, null),
-    (0, _reactRouterConfig.renderRoutes)(route.routes)
-  );
-}
-
-exports.default = {
-  component: App,
-  loadData: function loadData(_ref2) {
-    var dispatch = _ref2.dispatch;
-    return dispatch((0, _index.fetchCurrentUser)());
-  }
-};
-
-/***/ }),
-/* 14 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRouterDom = __webpack_require__(3);
-
-var _reactRedux = __webpack_require__(2);
+var _reactRedux = __webpack_require__(3);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function Header(_ref) {
   var auth = _ref.auth;
 
-  var authButton = auth ? _react2.default.createElement(
-    "a",
-    { href: "/api/logout" },
-    "Logout"
-  ) : _react2.default.createElement(
-    "a",
-    { href: "/api/auth/google" },
-    "Login"
-  );
-
   return _react2.default.createElement(
-    "div",
+    "h2",
     null,
-    _react2.default.createElement(
-      _reactRouterDom.Link,
-      { to: "/users" },
-      "Users"
-    ),
-    _react2.default.createElement(
-      _reactRouterDom.Link,
-      { to: "/admins" },
-      "Admins"
-    ),
-    authButton
+    "SpaceX Launch Programs"
   );
 }
 
@@ -484,40 +533,7 @@ var mapStateToProps = function mapStateToProps(_ref2) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(Header);
 
 /***/ }),
-/* 15 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function Home() {
-  return _react2.default.createElement(
-    "div",
-    { className: "red" },
-    _react2.default.createElement(
-      "h3",
-      null,
-      "Welcome1"
-    )
-  );
-}
-
-exports.default = {
-  component: Home
-};
-
-/***/ }),
-/* 16 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -533,11 +549,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(2);
+var _reactRedux = __webpack_require__(3);
 
-var _reactHelmet = __webpack_require__(7);
+var _helpers = __webpack_require__(15);
 
-var _index = __webpack_require__(1);
+var _actions = __webpack_require__(4);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -547,87 +563,332 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var UsersList = function (_Component) {
-  _inherits(UsersList, _Component);
+var HomePage = function (_Component) {
+  _inherits(HomePage, _Component);
 
-  function UsersList() {
-    _classCallCheck(this, UsersList);
+  function HomePage(props) {
+    _classCallCheck(this, HomePage);
 
-    return _possibleConstructorReturn(this, (UsersList.__proto__ || Object.getPrototypeOf(UsersList)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (HomePage.__proto__ || Object.getPrototypeOf(HomePage)).call(this, props));
+
+    _this.changePage = _this.changePage.bind(_this);
+    _this.state = {
+      limit: 10,
+      launch_success: null,
+      land_success: null,
+      launch_year: null
+    };
+    return _this;
   }
 
-  _createClass(UsersList, [{
+  _createClass(HomePage, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.props.fetchUsers();
+      var limit = 10;
+      var launch_success = null;
+      var land_success = null;
+      var launch_year = null;
+      var result = (0, _helpers.getParamObj)(this.props.location.search);
+      var param = "?";
+      if (!!result.limit) {
+        limit = result.limit;
+        param += "limit=" + limit;
+      }
+      if (!!result.launch_success) {
+        launch_success = result.launch_success;
+        param += "launch_success=" + launch_success;
+      }
+      if (!!result.land_success) {
+        land_success = result.land_success;
+        param += "land_success=" + land_success;
+      }
+      if (!!result.launch_year) {
+        launch_year = result.launch_year;
+        param += "launch_year=" + launch_year;
+      }
+
+      this.setState({ limit: limit, launch_success: launch_success, launch_year: launch_year, result: result });
+
+      this.props.fetchSpaceXLaunchClient(param);
     }
   }, {
-    key: "renderUsers",
-    value: function renderUsers() {
-      return this.props.users.map(function (user) {
-        return _react2.default.createElement(
-          "li",
-          { key: user.id },
-          user.name
-        );
-      });
-    }
-  }, {
-    key: "head",
-    value: function head() {
-      return _react2.default.createElement(
-        _reactHelmet.Helmet,
-        null,
-        _react2.default.createElement(
-          "title",
-          null,
-          this.props.users.length + " Users Loaded"
-        ),
-        _react2.default.createElement("meta", { property: "og:title", content: "Users App" }),
-        _react2.default.createElement("meta", { property: "og:title", content: "Users App" })
-      );
+    key: "changePage",
+    value: function changePage() {
+      this.props.history.push("?s=7");
     }
   }, {
     key: "render",
     value: function render() {
+      var _state = this.state,
+          limit = _state.limit,
+          launch_success = _state.launch_success,
+          launch_year = _state.launch_year,
+          result = _state.result;
+      var launch_list = this.props.launch_list;
+
       return _react2.default.createElement(
         "div",
-        null,
-        this.head(),
-        "Here's a big list of users:",
+        { className: "pageContent" },
         _react2.default.createElement(
-          "ul",
-          null,
-          this.renderUsers()
+          "div",
+          { className: "pageLeft" },
+          _react2.default.createElement(
+            "div",
+            { className: "filter" },
+            _react2.default.createElement(
+              "h3",
+              null,
+              "Filters"
+            ),
+            _react2.default.createElement(
+              "h4",
+              null,
+              "Launch Year"
+            ),
+            _react2.default.createElement(
+              "div",
+              { className: "filterRow" },
+              _react2.default.createElement(
+                "div",
+                null,
+                _react2.default.createElement(
+                  "button",
+                  {
+                    className: launch_year == "2006" ? "activeFilterBtn" : "",
+                    onClick: this.changePage
+                  },
+                  "2006"
+                )
+              ),
+              _react2.default.createElement(
+                "div",
+                null,
+                _react2.default.createElement(
+                  "button",
+                  null,
+                  "2007"
+                )
+              ),
+              _react2.default.createElement(
+                "div",
+                null,
+                _react2.default.createElement(
+                  "button",
+                  null,
+                  "2008"
+                )
+              ),
+              _react2.default.createElement(
+                "div",
+                null,
+                _react2.default.createElement(
+                  "button",
+                  null,
+                  "2009"
+                )
+              ),
+              _react2.default.createElement(
+                "div",
+                null,
+                _react2.default.createElement(
+                  "button",
+                  null,
+                  "2010"
+                )
+              )
+            ),
+            _react2.default.createElement(
+              "h4",
+              null,
+              "Successful Launch"
+            ),
+            _react2.default.createElement(
+              "div",
+              { className: "filterRow" },
+              _react2.default.createElement(
+                "div",
+                null,
+                _react2.default.createElement(
+                  "button",
+                  null,
+                  "True"
+                )
+              ),
+              _react2.default.createElement(
+                "div",
+                null,
+                _react2.default.createElement(
+                  "button",
+                  null,
+                  "False"
+                )
+              )
+            ),
+            _react2.default.createElement(
+              "h4",
+              null,
+              "Successful Landing"
+            ),
+            _react2.default.createElement(
+              "div",
+              { className: "filterRow" },
+              _react2.default.createElement(
+                "div",
+                null,
+                _react2.default.createElement(
+                  "button",
+                  null,
+                  "True"
+                )
+              ),
+              _react2.default.createElement(
+                "div",
+                null,
+                _react2.default.createElement(
+                  "button",
+                  null,
+                  "False"
+                )
+              )
+            )
+          )
+        ),
+        _react2.default.createElement(
+          "div",
+          { className: "pageRight" },
+          _react2.default.createElement(
+            "div",
+            { className: "itemGrid" },
+            launch_list.map(function (mission, index) {
+              return _react2.default.createElement(
+                "div",
+                { key: index, className: "col" },
+                _react2.default.createElement(
+                  "div",
+                  { className: "item" },
+                  _react2.default.createElement(
+                    "div",
+                    { className: "imageWrap" },
+                    _react2.default.createElement("img", { src: mission.links.mission_patch_small })
+                  ),
+                  _react2.default.createElement(
+                    "h3",
+                    null,
+                    mission.mission_name,
+                    " #",
+                    mission.flight_number
+                  ),
+                  _react2.default.createElement(
+                    "div",
+                    { className: "data" },
+                    _react2.default.createElement(
+                      "label",
+                      null,
+                      "Mission Ids : "
+                    ),
+                    _react2.default.createElement(
+                      "ul",
+                      null,
+                      mission.mission_id.map(function (id, index) {
+                        return _react2.default.createElement(
+                          "li",
+                          { key: id },
+                          id
+                        );
+                      })
+                    )
+                  ),
+                  _react2.default.createElement(
+                    "div",
+                    { className: "data" },
+                    _react2.default.createElement(
+                      "label",
+                      null,
+                      "Launch Year : "
+                    ),
+                    " ",
+                    mission.launch_year
+                  ),
+                  _react2.default.createElement(
+                    "div",
+                    { className: "data" },
+                    _react2.default.createElement(
+                      "label",
+                      null,
+                      "Successful Launch : "
+                    ),
+                    " ",
+                    mission.launch_success ? "True" : "False"
+                  ),
+                  _react2.default.createElement(
+                    "div",
+                    { className: "data" },
+                    _react2.default.createElement(
+                      "label",
+                      null,
+                      "Successful Landing : "
+                    )
+                  )
+                )
+              );
+            })
+          )
         )
       );
     }
   }]);
 
-  return UsersList;
+  return HomePage;
 }(_react.Component);
 
-var mapStateToProps = function mapStateToProps(state) {
+var mapStateToProps = function mapStateToProps(_ref) {
+  var spaceXLaunch = _ref.spaceXLaunch;
   return {
-    users: state.users
+    launch_list: spaceXLaunch.launch_list
   };
 };
 
-// const mapDispatchToProps = (dispatch) => ({
-//   fetchUsers,
-// });
-
-function loadData(store) {
-  return store.dispatch((0, _index.fetchUsers)());
-}
-
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    fetchSpaceXLaunch: function fetchSpaceXLaunch(param) {
+      return dispatch((0, _actions.fetchSpaceXLaunch)(param));
+    },
+    fetchSpaceXLaunchClient: function fetchSpaceXLaunchClient(param) {
+      return dispatch((0, _actions.fetchSpaceXLaunchClient)(param));
+    }
+  };
+};
 exports.default = {
-  loadData: loadData,
-  component: (0, _reactRedux.connect)(mapStateToProps, { fetchUsers: _index.fetchUsers })(UsersList)
+  component: (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(HomePage),
+  loadData: function loadData(_ref2) {
+    var dispatch = _ref2.dispatch;
+    return dispatch((0, _actions.fetchSpaceXLaunch)());
+  }
 };
 
 /***/ }),
-/* 17 */
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var getParamObj = exports.getParamObj = function getParamObj(paramString) {
+  if (paramString === "") return {};
+  var result = {};
+  paramString.replace("?", "").split("&").forEach(function (str) {
+    var arr = str.split("=");
+    result[arr[0]] = !!arr[1] ? arr[1] : null;
+  });
+
+  return result;
+};
+
+/***/ }),
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -660,169 +921,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 18 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRedux = __webpack_require__(2);
-
-var _index = __webpack_require__(1);
-
-var _requireAuth = __webpack_require__(19);
-
-var _requireAuth2 = _interopRequireDefault(_requireAuth);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AdminsListPage = function (_Component) {
-  _inherits(AdminsListPage, _Component);
-
-  function AdminsListPage() {
-    _classCallCheck(this, AdminsListPage);
-
-    return _possibleConstructorReturn(this, (AdminsListPage.__proto__ || Object.getPrototypeOf(AdminsListPage)).apply(this, arguments));
-  }
-
-  _createClass(AdminsListPage, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      this.props.fetchAdmins();
-    }
-  }, {
-    key: "renderAdmins",
-    value: function renderAdmins() {
-      return this.props.admins.map(function (admin) {
-        return _react2.default.createElement(
-          "li",
-          { key: admin.id },
-          admin.name
-        );
-      });
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      return _react2.default.createElement(
-        "div",
-        null,
-        "Here's a big list of adminsz:",
-        _react2.default.createElement(
-          "ul",
-          null,
-          this.renderAdmins()
-        )
-      );
-    }
-  }]);
-
-  return AdminsListPage;
-}(_react.Component);
-
-var mapStateToProps = function mapStateToProps(_ref) {
-  var admins = _ref.admins;
-  return {
-    admins: admins
-  };
-};
-
-exports.default = {
-  loadData: function loadData(_ref2) {
-    var dispatch = _ref2.dispatch;
-    return dispatch((0, _index.fetchAdmins)());
-  },
-  component: (0, _reactRedux.connect)(mapStateToProps, { fetchAdmins: _index.fetchAdmins })((0, _requireAuth2.default)(AdminsListPage))
-};
-
-/***/ }),
-/* 19 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-exports.default = function (ChildComponent) {
-  var RequireAuth = function (_Component) {
-    _inherits(RequireAuth, _Component);
-
-    function RequireAuth() {
-      _classCallCheck(this, RequireAuth);
-
-      return _possibleConstructorReturn(this, (RequireAuth.__proto__ || Object.getPrototypeOf(RequireAuth)).apply(this, arguments));
-    }
-
-    _createClass(RequireAuth, [{
-      key: "render",
-      value: function render() {
-        switch (this.props.auth) {
-          case false:
-            return _react2.default.createElement(_reactRouterDom.Redirect, { to: "/" });
-          case null:
-            return _react2.default.createElement(
-              "div",
-              null,
-              "Loading..."
-            );
-          default:
-            return _react2.default.createElement(ChildComponent, this.props);
-        }
-      }
-    }]);
-
-    return RequireAuth;
-  }(_react.Component);
-
-  var mapStateToProps = function mapStateToProps(_ref) {
-    var auth = _ref.auth;
-    return {
-      auth: auth
-    };
-  };
-
-  return (0, _reactRedux.connect)(mapStateToProps)(RequireAuth);
-};
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRedux = __webpack_require__(2);
-
-var _reactRouterDom = __webpack_require__(3);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-/***/ }),
-/* 20 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -836,19 +935,19 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _server = __webpack_require__(21);
+var _server = __webpack_require__(18);
 
-var _reactRouterDom = __webpack_require__(3);
+var _reactRouterDom = __webpack_require__(2);
 
-var _reactRedux = __webpack_require__(2);
+var _reactRedux = __webpack_require__(3);
 
-var _reactRouterConfig = __webpack_require__(4);
+var _reactRouterConfig = __webpack_require__(1);
 
-var _serializeJavascript = __webpack_require__(22);
+var _serializeJavascript = __webpack_require__(19);
 
 var _serializeJavascript2 = _interopRequireDefault(_serializeJavascript);
 
-var _reactHelmet = __webpack_require__(7);
+var _reactHelmet = __webpack_require__(20);
 
 var _Routes = __webpack_require__(5);
 
@@ -874,20 +973,70 @@ exports.default = function (req, store) {
   ));
 
   var helmet = _reactHelmet.Helmet.renderStatic();
-  return "\n    <html>\n    <head>\n    " + helmet.title.toString() + "\n    " + helmet.meta.toString() + "\n    </head>\n    <body>\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />\n    <div id=\"root\">" + content + "</div>\n    <script>\n    window.INITIAL_STATE = " + (0, _serializeJavascript2.default)(store.getState()) + "\n    </script\n    <script src=\"bundle.js\"></script>\n    </body>\n    </html>\n    ";
+  return "\n    <html>\n    <head>\n    " + helmet.title.toString() + "\n    " + helmet.meta.toString() + "\n    </head>\n    <body>\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />\n    <div id=\"root\">" + content + "</div>\n    <script>\n    window.INITIAL_STATE = " + (0, _serializeJavascript2.default)(store.getState()) + "\n    </script>\n    <script src=\"bundle.js\"></script>\n    </body>\n    </html>\n    ";
 };
 
 /***/ }),
-/* 21 */
+/* 18 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dom/server");
 
 /***/ }),
-/* 22 */
+/* 19 */
 /***/ (function(module, exports) {
 
 module.exports = require("serialize-javascript");
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-helmet");
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _redux = __webpack_require__(7);
+
+var _reduxThunk = __webpack_require__(22);
+
+var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
+
+var _axios = __webpack_require__(6);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _index = __webpack_require__(23);
+
+var _index2 = _interopRequireDefault(_index);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function (req) {
+  var axiosInstance = _axios2.default.create({
+    baseURL: "https://api.spacexdata.com",
+    headers: { cookie: req.get("cookie") || "" }
+  });
+
+  var store = (0, _redux.createStore)(_index2.default, {}, (0, _redux.applyMiddleware)(_reduxThunk2.default.withExtraArgument(axiosInstance)));
+
+  return store;
+};
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports) {
+
+module.exports = require("redux-thunk");
 
 /***/ }),
 /* 23 */
@@ -900,74 +1049,20 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _redux = __webpack_require__(8);
+var _redux = __webpack_require__(7);
 
-var _reduxThunk = __webpack_require__(24);
+var _spaceXLaunchReducer = __webpack_require__(24);
 
-var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
-
-var _axios = __webpack_require__(6);
-
-var _axios2 = _interopRequireDefault(_axios);
-
-var _index = __webpack_require__(25);
-
-var _index2 = _interopRequireDefault(_index);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = function (req) {
-  var axiosInstance = _axios2.default.create({
-    baseURL: "http://react-ssr-api.herokuapp.com",
-    headers: { cookie: req.get("cookie") || "" }
-  });
-
-  var store = (0, _redux.createStore)(_index2.default, {}, (0, _redux.applyMiddleware)(_reduxThunk2.default.withExtraArgument(axiosInstance)));
-
-  return store;
-};
-
-/***/ }),
-/* 24 */
-/***/ (function(module, exports) {
-
-module.exports = require("redux-thunk");
-
-/***/ }),
-/* 25 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _redux = __webpack_require__(8);
-
-var _usersReducer = __webpack_require__(26);
-
-var _usersReducer2 = _interopRequireDefault(_usersReducer);
-
-var _authReducer = __webpack_require__(27);
-
-var _authReducer2 = _interopRequireDefault(_authReducer);
-
-var _adminsReducer = __webpack_require__(28);
-
-var _adminsReducer2 = _interopRequireDefault(_adminsReducer);
+var _spaceXLaunchReducer2 = _interopRequireDefault(_spaceXLaunchReducer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = (0, _redux.combineReducers)({
-  users: _usersReducer2.default,
-  auth: _authReducer2.default,
-  admins: _adminsReducer2.default
+  spaceXLaunch: _spaceXLaunchReducer2.default
 });
 
 /***/ }),
-/* 26 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -977,65 +1072,21 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _index = __webpack_require__(1);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-exports.default = function () {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-  var action = arguments[1];
+var _index = __webpack_require__(4);
 
-  switch (action.type) {
-    case _index.FETCH_USERS:
-      return action.payload.data;
-    default:
-      return state;
-  }
+var INITIAL_SPACE_X_LAUNCH_STATE = {
+  launch_list: {}
 };
 
-/***/ }),
-/* 27 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _index = __webpack_require__(1);
-
 exports.default = function () {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : INITIAL_SPACE_X_LAUNCH_STATE;
   var action = arguments[1];
 
   switch (action.type) {
-    case _index.FETCH_CURRENT_USER:
-      return action.payload.data || false;
-    default:
-      return state;
-  }
-};
-
-/***/ }),
-/* 28 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _index = __webpack_require__(1);
-
-exports.default = function () {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-  var action = arguments[1];
-
-  switch (action.type) {
-    case _index.FETCH_ADMINS:
-      return action.payload.data;
+    case _index.MODIFY_SPACE_X_LAUNCH_DATA:
+      return _extends({}, state, action.payload);
     default:
       return state;
   }

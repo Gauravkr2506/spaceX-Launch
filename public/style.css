@@ -1,3 +1,148 @@
-.red {
-  background-color: red;
+html,
+body,
+p,
+div,
+ul,
+li,
+h2,
+h3,
+h4 {
+  font-size: 13px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin: 0px;
+  padding: 0px;
+}
+body {
+  padding: 0px 15px;
+  background-color: #f4f4f4;
+}
+p {
+  background-color: green;
+}
+
+.wrapper {
+  max-width: 1440px;
+  width: 100%;
+  margin: 0px auto;
+}
+h2 {
+  font-size: 30px;
+  font-weight: normal;
+  margin: 15px 0px;
+}
+.pageContent {
+  margin: 0px -7px;
+}
+/* left filter start*/
+
+.filter {
+  margin: 7px;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 7px;
+}
+
+.filter h3 {
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 15px;
+}
+.filter h4 {
+  font-size: 13px;
+  color: #666;
+  font-weight: normal;
+  text-align: center;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 5px;
+}
+
+.filter button {
+  outline: none;
+  background-color: #ccff94;
+  color: #000;
+  border: 0px;
+  padding: 5px 15px;
+  font-size: 12px;
+  line-height: 16px;
+  width: 100%;
+}
+
+.activeFilterBtn {
+  background-color: #7ad61f !important;
+}
+.filterRow {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 15px;
+}
+.filterRow > div {
+  flex: 0 0 50%;
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+/*right content start*/
+
+.item {
+  margin: 7px;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 10px;
+}
+.item h3 {
+  font-size: 14;
+  font-weight: bold;
+  color: rgb(61, 15, 228);
+  margin-bottom: 10px;
+}
+.item .imageWrap {
+  width: 100%;
+  margin-bottom: 15px;
+}
+.imageWrap img {
+  width: 100%;
+  height: auto;
+}
+.data {
+  margin-bottom: 5px;
+  color: rgb(112, 105, 145);
+}
+.data label {
+  font-weight: bold;
+  color: rgb(31, 30, 30);
+}
+.data ul {
+  list-style-type: disc;
+  margin-left: 20px;
+}
+/*tablet view*/
+@media only screen and (min-width: 700px) {
+  .pageRight {
+    display: flex;
+    flex-flow: column;
+  }
+  .itemGrid {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .col {
+    flex: 0 0 50%;
+  }
+}
+
+/*desktop view*/
+@media only screen and (min-width: 1024px) {
+  .pageContent {
+    display: flex;
+  }
+  .pageLeft {
+    flex: 20%;
+  }
+  .pageRight {
+    flex: 80%;
+  }
+  .col {
+    flex: 0 0 25%;
+  }
 }

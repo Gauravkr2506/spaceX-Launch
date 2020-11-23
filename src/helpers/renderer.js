@@ -29,7 +29,7 @@ export default (req, store, context = {}) => {
     <div id="root">${content}</div>
     <script>
     window.INITIAL_STATE = ${serialize(store.getState())}
-    </script
+    </script>
     <script src="bundle.js"></script>
     </body>
     </html>
