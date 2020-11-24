@@ -173,6 +173,7 @@ class HomePage extends Component {
                 (itm, index) => (
                   <div key={index}>
                     <button
+                      aria-label={2006 + index}
                       className={
                         launch_year == 2006 + index ? "activeFilterBtn" : ""
                       }
@@ -188,6 +189,7 @@ class HomePage extends Component {
             <div className="filterRow">
               <div>
                 <button
+                  aria-label="True"
                   onClick={() => this.changeLaunchFilter("true")}
                   className={launch_success == "true" ? "activeFilterBtn" : ""}
                 >
@@ -196,6 +198,7 @@ class HomePage extends Component {
               </div>
               <div>
                 <button
+                  aria-label="False"
                   onClick={() => this.changeLaunchFilter("false")}
                   className={launch_success == "false" ? "activeFilterBtn" : ""}
                 >
@@ -207,6 +210,7 @@ class HomePage extends Component {
             <div className="filterRow">
               <div>
                 <button
+                  aria-label="True"
                   onClick={() => this.changeLandFilter("true")}
                   className={land_success == "true" ? "activeFilterBtn" : ""}
                 >
@@ -215,6 +219,7 @@ class HomePage extends Component {
               </div>
               <div>
                 <button
+                  aria-label="False"
                   onClick={() => this.changeLandFilter("false")}
                   className={land_success == "false" ? "activeFilterBtn" : ""}
                 >
@@ -230,7 +235,10 @@ class HomePage extends Component {
               <div key={index} className="col">
                 <div className="item">
                   <div className="imageWrap">
-                    <img src={mission.links.mission_patch_small} />
+                    <img
+                      alt={mission.mission_name}
+                      src={mission.links.mission_patch_small}
+                    />
                   </div>
                   <h3>
                     {mission.mission_name} #{mission.flight_number}

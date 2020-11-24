@@ -1,5 +1,5 @@
 import React from "react";
-import { renderToString } from "react-dom/server";
+import { renderToNodeStream } from "react-dom/server";
 import { StaticRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { renderRoutes } from "react-router-config";
@@ -9,7 +9,7 @@ import { Helmet } from "react-helmet";
 import Routes from "./../client/Routes";
 
 export default (req, store, context = {}) => {
-  const content = renderToString(
+  const content = renderToNodeStream(
     <Provider store={store}>
       <StaticRouter location={req.path} context={context}>
         <div>{renderRoutes(Routes)}</div>
@@ -19,7 +19,7 @@ export default (req, store, context = {}) => {
 
   const helmet = Helmet.renderStatic();
   return `
-    <html>
+    <html lang="en">
     <head>
     ${helmet.title.toString()}
     ${helmet.meta.toString()}

@@ -7,14 +7,14 @@ li,
 h2,
 h3,
 h4 {
-  font-size: 13px;
+  font-size: 14px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   margin: 0px;
   padding: 0px;
 }
 body {
   padding: 0px 15px;
-  background-color: #f4f4f4;
+  background-color: #f9f9f9;
 }
 p {
   background-color: green;
@@ -48,7 +48,7 @@ h2 {
   margin-bottom: 15px;
 }
 .filter h4 {
-  font-size: 13px;
+  font-size: 14px;
   color: #666;
   font-weight: normal;
   text-align: center;
@@ -63,7 +63,7 @@ h2 {
   color: #000;
   border: 0px;
   padding: 5px 15px;
-  font-size: 12px;
+  font-size: 13px;
   line-height: 16px;
   width: 100%;
 }

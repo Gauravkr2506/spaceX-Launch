@@ -503,8 +503,16 @@ function App(_ref) {
       _react2.default.createElement("meta", { property: "og:type", content: "website" }),
       _react2.default.createElement("meta", { property: "og:title", content: "Space X Launch App" }),
       _react2.default.createElement("meta", {
+        name: "viewport",
+        content: "width=device-width, initial-scale=1"
+      }),
+      _react2.default.createElement("meta", {
+        name: "Description",
+        content: "Here is the data about space x launch, you can filter \r the data according to date of launch, successful launch and successful landings"
+      }),
+      _react2.default.createElement("meta", {
         property: "og:description",
-        content: "Here is the data about space x launch, you can filter \r the data according to date of launch, successful launch and successful landingS"
+        content: "Here is the data about space x launch, you can filter \r the data according to date of launch, successful launch and successful landings"
       }),
       _react2.default.createElement("meta", { property: "og:locale", content: "en_GB" })
     );
@@ -841,6 +849,7 @@ var HomePage = function (_Component) {
                   _react2.default.createElement(
                     "button",
                     {
+                      "aria-label": 2006 + index,
                       className: launch_year == 2006 + index ? "activeFilterBtn" : "",
                       onClick: function onClick() {
                         return _this3.changeYearFilter(2006 + index);
@@ -865,6 +874,7 @@ var HomePage = function (_Component) {
                 _react2.default.createElement(
                   "button",
                   {
+                    "aria-label": "True",
                     onClick: function onClick() {
                       return _this3.changeLaunchFilter("true");
                     },
@@ -879,6 +889,7 @@ var HomePage = function (_Component) {
                 _react2.default.createElement(
                   "button",
                   {
+                    "aria-label": "False",
                     onClick: function onClick() {
                       return _this3.changeLaunchFilter("false");
                     },
@@ -902,6 +913,7 @@ var HomePage = function (_Component) {
                 _react2.default.createElement(
                   "button",
                   {
+                    "aria-label": "True",
                     onClick: function onClick() {
                       return _this3.changeLandFilter("true");
                     },
@@ -916,6 +928,7 @@ var HomePage = function (_Component) {
                 _react2.default.createElement(
                   "button",
                   {
+                    "aria-label": "False",
                     onClick: function onClick() {
                       return _this3.changeLandFilter("false");
                     },
@@ -943,7 +956,10 @@ var HomePage = function (_Component) {
                   _react2.default.createElement(
                     "div",
                     { className: "imageWrap" },
-                    _react2.default.createElement("img", { src: mission.links.mission_patch_small })
+                    _react2.default.createElement("img", {
+                      alt: mission.mission_name,
+                      src: mission.links.mission_patch_small
+                    })
                   ),
                   _react2.default.createElement(
                     "h3",
@@ -1146,7 +1162,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = function (req, store) {
   var context = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 
-  var content = (0, _server.renderToString)(_react2.default.createElement(
+  var content = (0, _server.renderToNodeStream)(_react2.default.createElement(
     _reactRedux.Provider,
     { store: store },
     _react2.default.createElement(
@@ -1161,7 +1177,7 @@ exports.default = function (req, store) {
   ));
 
   var helmet = _reactHelmet.Helmet.renderStatic();
-  return "\n    <html>\n    <head>\n    " + helmet.title.toString() + "\n    " + helmet.meta.toString() + "\n    <link rel=\"icon\" href=\"favicon.ico\" />\n    </head>\n    <body>\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />\n    <div id=\"root\">" + content + "</div>\n    <script>\n    window.INITIAL_STATE = " + (0, _serializeJavascript2.default)(store.getState()) + "\n    </script>\n    <script src=\"bundle.js\"></script>\n    </body>\n    </html>\n    ";
+  return "\n    <html lang=\"en\">\n    <head>\n    " + helmet.title.toString() + "\n    " + helmet.meta.toString() + "\n    <link rel=\"icon\" href=\"favicon.ico\" />\n    </head>\n    <body>\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />\n    <div id=\"root\">" + content + "</div>\n    <script>\n    window.INITIAL_STATE = " + (0, _serializeJavascript2.default)(store.getState()) + "\n    </script>\n    <script src=\"bundle.js\"></script>\n    </body>\n    </html>\n    ";
 };
 
 /***/ }),
