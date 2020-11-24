@@ -4,7 +4,6 @@ import { renderRoutes } from "react-router-config";
 
 import Header from "./components/Header";
 import Loader from "./components/Loader";
-import { fetchCurrentUser } from "./actions/index";
 
 function App({ route }) {
   const head = () => {
@@ -44,5 +43,4 @@ function App({ route }) {
 
 export default {
   component: App,
-  loadData: ({ dispatch }) => dispatch(fetchCurrentUser()),
 };
