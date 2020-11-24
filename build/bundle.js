@@ -1162,7 +1162,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = function (req, store) {
   var context = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 
-  var content = (0, _server.renderToNodeStream)(_react2.default.createElement(
+  var content = (0, _server.renderToString)(_react2.default.createElement(
     _reactRedux.Provider,
     { store: store },
     _react2.default.createElement(
@@ -1177,7 +1177,7 @@ exports.default = function (req, store) {
   ));
 
   var helmet = _reactHelmet.Helmet.renderStatic();
-  return "\n    <html lang=\"en\">\n    <head>\n    " + helmet.title.toString() + "\n    " + helmet.meta.toString() + "\n    <link rel=\"icon\" href=\"favicon.ico\" />\n    </head>\n    <body>\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />\n    <div id=\"root\">" + content + "</div>\n    <script>\n    window.INITIAL_STATE = " + (0, _serializeJavascript2.default)(store.getState()) + "\n    </script>\n    <script src=\"bundle.js\"></script>\n    </body>\n    </html>\n    ";
+  return "\n  <!DOCTYPE html>\n    <html lang=\"en\">\n    <head>\n    " + helmet.title.toString() + "\n    " + helmet.meta.toString() + "\n    <link rel=\"icon\" href=\"favicon.ico\" />\n    </head>\n    <body>\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />\n    <div id=\"root\">" + content + "</div>\n    <script>\n    window.INITIAL_STATE = " + (0, _serializeJavascript2.default)(store.getState()) + "\n    </script>\n    <script src=\"bundle.js\"></script>\n    </body>\n    </html>\n    ";
 };
 
 /***/ }),
