@@ -3,7 +3,7 @@ import axios from "axios";
 export const MODIFY_SPACE_X_LAUNCH_DATA = "MODIFY_SPACE_X_LAUNCH_DATA";
 export const SET_LOADER = "SET_LOADER";
 
-export const fetchSpaceXLaunch = (param = "?limit=10") => async (
+export const fetchSpaceXLaunch = (param = "?limit=100") => async (
   dispatch,
   getState,
   api
@@ -15,12 +15,11 @@ export const fetchSpaceXLaunch = (param = "?limit=10") => async (
   });
 };
 
-export const fetchSpaceXLaunchClient = (param = "?limit=10") => async (
-  dispatch,
-  getState,
-  api
-) => {
-  dispatch({ type: SET_LOADER, payload: true });
+export const fetchSpaceXLaunchClient = (
+  param = "?limit=100",
+  loader = true
+) => async (dispatch, getState, api) => {
+  dispatch({ type: SET_LOADER, payload: loader });
   const res = await axios.get("https://api.spacexdata.com/v3/launches" + param);
   dispatch({
     type: MODIFY_SPACE_X_LAUNCH_DATA,

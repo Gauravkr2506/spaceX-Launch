@@ -20,7 +20,9 @@ class HomePage extends Component {
   }
 
   componentDidMount() {
-    this.loadDataFromParam();
+    if (this.props.location.search != "") {
+      this.loadDataFromParam(false);
+    }
   }
 
   componentDidUpdate() {
@@ -29,7 +31,7 @@ class HomePage extends Component {
     }
   }
 
-  loadDataFromParam() {
+  loadDataFromParam(loader = true) {
     let limit = 10;
     let launch_success = null;
     let land_success = null;
@@ -57,7 +59,7 @@ class HomePage extends Component {
       param = "?" + param.slice(1);
     }
 
-    this.props.fetchSpaceXLaunchClient(param).finally(() => {
+    this.props.fetchSpaceXLaunchClient(param, loader).finally(() => {
       this.setState({
         limit,
         launch_success,
@@ -132,7 +134,6 @@ class HomePage extends Component {
       launch_year,
       result,
     } = this.state;
-    debugger;
     let param = "";
     if (!!limit) {
       param += "&limit=" + limit;
@@ -278,7 +279,8 @@ const mapStateToProps = ({ spaceXLaunch }) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   fetchSpaceXLaunch: (param) => dispatch(fetchSpaceXLaunch(param)),
-  fetchSpaceXLaunchClient: (param) => dispatch(fetchSpaceXLaunchClient(param)),
+  fetchSpaceXLaunchClient: (param, loader) =>
+    dispatch(fetchSpaceXLaunchClient(param, loader)),
 });
 export default {
   component: connect(mapStateToProps, mapDispatchToProps)(HomePage),

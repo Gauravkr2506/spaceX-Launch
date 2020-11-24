@@ -6183,7 +6183,7 @@ var MODIFY_SPACE_X_LAUNCH_DATA = exports.MODIFY_SPACE_X_LAUNCH_DATA = "MODIFY_SP
 var SET_LOADER = exports.SET_LOADER = "SET_LOADER";
 
 var fetchSpaceXLaunch = exports.fetchSpaceXLaunch = function fetchSpaceXLaunch() {
-  var param = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "?limit=10";
+  var param = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "?limit=100";
   return function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dispatch, getState, api) {
       var res;
@@ -6217,7 +6217,8 @@ var fetchSpaceXLaunch = exports.fetchSpaceXLaunch = function fetchSpaceXLaunch()
 };
 
 var fetchSpaceXLaunchClient = exports.fetchSpaceXLaunchClient = function fetchSpaceXLaunchClient() {
-  var param = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "?limit=10";
+  var param = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "?limit=100";
+  var loader = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
   return function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(dispatch, getState, api) {
       var res;
@@ -6225,7 +6226,7 @@ var fetchSpaceXLaunchClient = exports.fetchSpaceXLaunchClient = function fetchSp
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              dispatch({ type: SET_LOADER, payload: true });
+              dispatch({ type: SET_LOADER, payload: loader });
               _context2.next = 3;
               return _axios2.default.get("https://api.spacexdata.com/v3/launches" + param);
 
@@ -6246,7 +6247,7 @@ var fetchSpaceXLaunchClient = exports.fetchSpaceXLaunchClient = function fetchSp
       }, _callee2, undefined);
     }));
 
-    return function (_x6, _x7, _x8) {
+    return function (_x7, _x8, _x9) {
       return _ref2.apply(this, arguments);
     };
   }();
@@ -42618,7 +42619,9 @@ var HomePage = function (_Component) {
   _createClass(HomePage, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.loadDataFromParam();
+      if (this.props.location.search != "") {
+        this.loadDataFromParam(false);
+      }
     }
   }, {
     key: "componentDidUpdate",
@@ -42631,6 +42634,8 @@ var HomePage = function (_Component) {
     key: "loadDataFromParam",
     value: function loadDataFromParam() {
       var _this2 = this;
+
+      var loader = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
 
       var limit = 10;
       var launch_success = null;
@@ -42659,7 +42664,7 @@ var HomePage = function (_Component) {
         param = "?" + param.slice(1);
       }
 
-      this.props.fetchSpaceXLaunchClient(param).finally(function () {
+      this.props.fetchSpaceXLaunchClient(param, loader).finally(function () {
         _this2.setState({
           limit: limit,
           launch_success: launch_success,
@@ -42737,7 +42742,6 @@ var HomePage = function (_Component) {
           launch_year = _state3.launch_year,
           result = _state3.result;
 
-      debugger;
       var param = "";
       if (!!limit) {
         param += "&limit=" + limit;
@@ -42993,8 +42997,8 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     fetchSpaceXLaunch: function fetchSpaceXLaunch(param) {
       return dispatch((0, _actions.fetchSpaceXLaunch)(param));
     },
-    fetchSpaceXLaunchClient: function fetchSpaceXLaunchClient(param) {
-      return dispatch((0, _actions.fetchSpaceXLaunchClient)(param));
+    fetchSpaceXLaunchClient: function fetchSpaceXLaunchClient(param, loader) {
+      return dispatch((0, _actions.fetchSpaceXLaunchClient)(param, loader));
     }
   };
 };
@@ -43025,20 +43029,6 @@ var getParamObj = exports.getParamObj = function getParamObj(paramString) {
   });
 
   return result;
-};
-
-var throttle = exports.throttle = function throttle(fn) {
-  var delay = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 500;
-
-  var last = 0;
-  return function () {
-    debugger;
-    var now = new Date().getTime();
-    if (now - last < delay) {
-      return fn.apply(undefined, arguments);
-    }
-    last = now;
-  };
 };
 
 /***/ }),
