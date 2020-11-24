@@ -9,7 +9,7 @@ class HomePage extends Component {
     super(props);
     this.changeYearFilter = this.changeYearFilter.bind(this);
     this.state = {
-      limit: 10,
+      limit: 100,
       launch_success: null,
       land_success: null,
       launch_year: null,

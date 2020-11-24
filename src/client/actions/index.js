@@ -37,8 +37,6 @@ export const fetchSpaceXLaunch = (param = "?limit=10") => async (
   getState,
   api
 ) => {
-  console.log("xxxxxxxxxxxxxxxxxxxxx");
-  console.log(param);
   const res = await api.get("/v3/launches" + param);
   dispatch({
     type: MODIFY_SPACE_X_LAUNCH_DATA,
@@ -52,8 +50,6 @@ export const fetchSpaceXLaunchClient = (param = "?limit=10") => async (
   api
 ) => {
   dispatch({ type: SET_LOADER, payload: true });
-  console.log("xxxxxxxxxxxxxxxxxxxxx");
-  console.log(param);
   const res = await axios.get("https://api.spacexdata.com/v3/launches" + param);
   dispatch({
     type: MODIFY_SPACE_X_LAUNCH_DATA,

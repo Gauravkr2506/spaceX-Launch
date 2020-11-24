@@ -6295,12 +6295,10 @@ var fetchSpaceXLaunch = exports.fetchSpaceXLaunch = function fetchSpaceXLaunch()
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
-              console.log("xxxxxxxxxxxxxxxxxxxxx");
-              console.log(param);
-              _context4.next = 4;
+              _context4.next = 2;
               return api.get("/v3/launches" + param);
 
-            case 4:
+            case 2:
               res = _context4.sent;
 
               dispatch({
@@ -6308,7 +6306,7 @@ var fetchSpaceXLaunch = exports.fetchSpaceXLaunch = function fetchSpaceXLaunch()
                 payload: { launch_list: res.data }
               });
 
-            case 6:
+            case 4:
             case "end":
               return _context4.stop();
           }
@@ -6332,12 +6330,10 @@ var fetchSpaceXLaunchClient = exports.fetchSpaceXLaunchClient = function fetchSp
           switch (_context5.prev = _context5.next) {
             case 0:
               dispatch({ type: SET_LOADER, payload: true });
-              console.log("xxxxxxxxxxxxxxxxxxxxx");
-              console.log(param);
-              _context5.next = 5;
+              _context5.next = 3;
               return _axios2.default.get("https://api.spacexdata.com/v3/launches" + param);
 
-            case 5:
+            case 3:
               res = _context5.sent;
 
               dispatch({
@@ -6346,7 +6342,7 @@ var fetchSpaceXLaunchClient = exports.fetchSpaceXLaunchClient = function fetchSp
               });
               dispatch({ type: SET_LOADER, payload: false });
 
-            case 8:
+            case 6:
             case "end":
               return _context5.stop();
           }
@@ -42718,7 +42714,7 @@ var HomePage = function (_Component) {
 
     _this.changeYearFilter = _this.changeYearFilter.bind(_this);
     _this.state = {
-      limit: 10,
+      limit: 100,
       launch_success: null,
       land_success: null,
       launch_year: null,
