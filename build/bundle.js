@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 8);
+/******/ 	return __webpack_require__(__webpack_require__.s = 9);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -97,9 +97,9 @@ module.exports = require("react-redux");
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.fetchSpaceXLaunchClient = exports.fetchSpaceXLaunch = exports.fetchAdmins = exports.fetchCurrentUser = exports.fetchUsers = exports.MODIFY_SPACE_X_LAUNCH_DATA = exports.FETCH_ADMINS = exports.FETCH_CURRENT_USER = exports.FETCH_USERS = undefined;
+exports.fetchSpaceXLaunchClient = exports.fetchSpaceXLaunch = exports.fetchAdmins = exports.fetchCurrentUser = exports.fetchUsers = exports.SET_LOADER = exports.MODIFY_SPACE_X_LAUNCH_DATA = exports.FETCH_ADMINS = exports.FETCH_CURRENT_USER = exports.FETCH_USERS = undefined;
 
-var _axios = __webpack_require__(6);
+var _axios = __webpack_require__(7);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -112,6 +112,7 @@ var FETCH_CURRENT_USER = exports.FETCH_CURRENT_USER = "FETCH_CURRENT_USER";
 var FETCH_ADMINS = exports.FETCH_ADMINS = "FETCH_ADMINS";
 
 var MODIFY_SPACE_X_LAUNCH_DATA = exports.MODIFY_SPACE_X_LAUNCH_DATA = "MODIFY_SPACE_X_LAUNCH_DATA";
+var SET_LOADER = exports.SET_LOADER = "SET_LOADER";
 
 var fetchUsers = exports.fetchUsers = function fetchUsers() {
   return function () {
@@ -258,20 +259,22 @@ var fetchSpaceXLaunchClient = exports.fetchSpaceXLaunchClient = function fetchSp
         while (1) {
           switch (_context5.prev = _context5.next) {
             case 0:
+              dispatch({ type: SET_LOADER, payload: true });
               console.log("xxxxxxxxxxxxxxxxxxxxx");
               console.log(param);
-              _context5.next = 4;
+              _context5.next = 5;
               return _axios2.default.get("https://api.spacexdata.com/v3/launches" + param);
 
-            case 4:
+            case 5:
               res = _context5.sent;
 
               dispatch({
                 type: MODIFY_SPACE_X_LAUNCH_DATA,
                 payload: { launch_list: res.data }
               });
+              dispatch({ type: SET_LOADER, payload: false });
 
-            case 6:
+            case 8:
             case "end":
               return _context5.stop();
           }
@@ -300,15 +303,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 // import UsersListPage from "./pages/UsersListPage";
 
 
-var _App = __webpack_require__(12);
+var _App = __webpack_require__(13);
 
 var _App2 = _interopRequireDefault(_App);
 
-var _HomePage = __webpack_require__(14);
+var _HomePage = __webpack_require__(17);
 
 var _HomePage2 = _interopRequireDefault(_HomePage);
 
-var _NotFoundPage = __webpack_require__(16);
+var _NotFoundPage = __webpack_require__(19);
 
 var _NotFoundPage2 = _interopRequireDefault(_NotFoundPage);
 
@@ -338,30 +341,36 @@ exports.default = [_extends({}, _App2.default, {
 /* 6 */
 /***/ (function(module, exports) {
 
-module.exports = require("axios");
+module.exports = require("react-helmet");
 
 /***/ }),
 /* 7 */
 /***/ (function(module, exports) {
 
-module.exports = require("redux");
+module.exports = require("axios");
 
 /***/ }),
 /* 8 */
+/***/ (function(module, exports) {
+
+module.exports = require("redux");
+
+/***/ }),
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(9);
+__webpack_require__(10);
 
-var _express = __webpack_require__(10);
+var _express = __webpack_require__(11);
 
 var _express2 = _interopRequireDefault(_express);
 
 var _reactRouterConfig = __webpack_require__(1);
 
-var _expressHttpProxy = __webpack_require__(11);
+var _expressHttpProxy = __webpack_require__(12);
 
 var _expressHttpProxy2 = _interopRequireDefault(_expressHttpProxy);
 
@@ -369,11 +378,11 @@ var _Routes = __webpack_require__(5);
 
 var _Routes2 = _interopRequireDefault(_Routes);
 
-var _renderer = __webpack_require__(17);
+var _renderer = __webpack_require__(20);
 
 var _renderer2 = _interopRequireDefault(_renderer);
 
-var _createStore = __webpack_require__(21);
+var _createStore = __webpack_require__(23);
 
 var _createStore2 = _interopRequireDefault(_createStore);
 
@@ -431,25 +440,25 @@ app.listen(port, function () {
 });
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports) {
 
 module.exports = require("babel-polyfill");
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports) {
 
 module.exports = require("express");
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports) {
 
 module.exports = require("express-http-proxy");
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -463,11 +472,17 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactHelmet = __webpack_require__(6);
+
 var _reactRouterConfig = __webpack_require__(1);
 
-var _Header = __webpack_require__(13);
+var _Header = __webpack_require__(14);
 
 var _Header2 = _interopRequireDefault(_Header);
+
+var _Loader = __webpack_require__(15);
+
+var _Loader2 = _interopRequireDefault(_Loader);
 
 var _index = __webpack_require__(4);
 
@@ -476,10 +491,30 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function App(_ref) {
   var route = _ref.route;
 
+  var head = function head() {
+    return _react2.default.createElement(
+      _reactHelmet.Helmet,
+      null,
+      _react2.default.createElement(
+        "title",
+        null,
+        "Space X Launches"
+      ),
+      _react2.default.createElement("meta", { property: "og:type", content: "website" }),
+      _react2.default.createElement("meta", { property: "og:title", content: "Space X Launch App" }),
+      _react2.default.createElement("meta", {
+        property: "og:description",
+        content: "Here is the data about space x launch, you can filter \r the data according to date of launch, successful launch and successful landingS"
+      }),
+      _react2.default.createElement("meta", { property: "og:locale", content: "en_GB" })
+    );
+  };
   return _react2.default.createElement(
     "div",
     { className: "wrapper" },
+    head(),
     _react2.default.createElement(_Header2.default, null),
+    _react2.default.createElement(_Loader2.default, null),
     (0, _reactRouterConfig.renderRoutes)(route.routes)
   );
 }
@@ -493,7 +528,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -533,7 +568,45 @@ var mapStateToProps = function mapStateToProps(_ref2) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(Header);
 
 /***/ }),
-/* 14 */
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(3);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function Loader(_ref) {
+  var loader = _ref.loader;
+
+  return loader ? _react2.default.createElement(
+    "div",
+    { className: "loader" },
+    "Loading..."
+  ) : null;
+}
+
+var mapStateToProps = function mapStateToProps(_ref2) {
+  var common = _ref2.common;
+  return {
+    loader: common.loader
+  };
+};
+exports.default = (0, _reactRedux.connect)(mapStateToProps)(Loader);
+
+/***/ }),
+/* 16 */,
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -551,7 +624,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(3);
 
-var _helpers = __webpack_require__(15);
+var _helpers = __webpack_require__(18);
 
 var _actions = __webpack_require__(4);
 
@@ -571,12 +644,15 @@ var HomePage = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (HomePage.__proto__ || Object.getPrototypeOf(HomePage)).call(this, props));
 
-    _this.changePage = _this.changePage.bind(_this);
+    _this.changeYearFilter = _this.changeYearFilter.bind(_this);
     _this.state = {
       limit: 10,
       launch_success: null,
       land_success: null,
-      launch_year: null
+      launch_year: null,
+      search: null,
+      successful_launch: null,
+      successful_landing: null
     };
     return _this;
   }
@@ -584,46 +660,156 @@ var HomePage = function (_Component) {
   _createClass(HomePage, [{
     key: "componentDidMount",
     value: function componentDidMount() {
+      this.loadDataFromParam();
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      if (this.props.location.search !== this.state.search) {
+        this.loadDataFromParam();
+      }
+    }
+  }, {
+    key: "loadDataFromParam",
+    value: function loadDataFromParam() {
+      var _this2 = this;
+
       var limit = 10;
       var launch_success = null;
       var land_success = null;
       var launch_year = null;
       var result = (0, _helpers.getParamObj)(this.props.location.search);
-      var param = "?";
+      var param = "";
       if (!!result.limit) {
         limit = result.limit;
-        param += "limit=" + limit;
+        param += "&limit=" + limit;
       }
       if (!!result.launch_success) {
         launch_success = result.launch_success;
-        param += "launch_success=" + launch_success;
+        param += "&launch_success=" + launch_success;
       }
       if (!!result.land_success) {
         land_success = result.land_success;
-        param += "land_success=" + land_success;
+        param += "&land_success=" + land_success;
       }
       if (!!result.launch_year) {
         launch_year = result.launch_year;
-        param += "launch_year=" + launch_year;
+        param += "&launch_year=" + launch_year;
       }
 
-      this.setState({ limit: limit, launch_success: launch_success, launch_year: launch_year, result: result });
+      if (param.length > 0) {
+        param = "?" + param.slice(1);
+      }
 
-      this.props.fetchSpaceXLaunchClient(param);
+      this.props.fetchSpaceXLaunchClient(param).finally(function () {
+        _this2.setState({
+          limit: limit,
+          launch_success: launch_success,
+          launch_year: launch_year,
+          land_success: land_success,
+          search: _this2.props.location.search
+        });
+      });
     }
   }, {
-    key: "changePage",
-    value: function changePage() {
-      this.props.history.push("?s=7");
+    key: "changeYearFilter",
+    value: function changeYearFilter(year) {
+      var _state = this.state,
+          limit = _state.limit,
+          launch_success = _state.launch_success,
+          land_success = _state.land_success,
+          launch_year = _state.launch_year,
+          result = _state.result;
+
+      var param = "";
+      if (!!limit) {
+        param += "&limit=" + limit;
+      }
+      if (!!launch_success) {
+        param += "&launch_success=" + launch_success;
+      }
+      if (!!land_success) {
+        param += "&land_success=" + land_success;
+      }
+      if (!!year) {
+        param += "&launch_year=" + year;
+      }
+
+      if (param.length > 0) {
+        param = "?" + param.slice(1);
+      }
+      this.props.history.replace(param);
+    }
+  }, {
+    key: "changeLaunchFilter",
+    value: function changeLaunchFilter(launch) {
+      var _state2 = this.state,
+          limit = _state2.limit,
+          launch_success = _state2.launch_success,
+          land_success = _state2.land_success,
+          launch_year = _state2.launch_year,
+          result = _state2.result;
+
+      var param = "";
+      if (!!limit) {
+        param += "&limit=" + limit;
+      }
+      if (!!launch) {
+        param += "&launch_success=" + launch;
+      }
+      if (!!land_success) {
+        param += "&land_success=" + land_success;
+      }
+      if (!!launch_year) {
+        param += "&launch_year=" + launch_year;
+      }
+
+      if (param.length > 0) {
+        param = "?" + param.slice(1);
+      }
+      this.props.history.replace(param);
+    }
+  }, {
+    key: "changeLandFilter",
+    value: function changeLandFilter(land) {
+      var _state3 = this.state,
+          limit = _state3.limit,
+          launch_success = _state3.launch_success,
+          land_success = _state3.land_success,
+          launch_year = _state3.launch_year,
+          result = _state3.result;
+
+      debugger;
+      var param = "";
+      if (!!limit) {
+        param += "&limit=" + limit;
+      }
+      if (!!launch_success) {
+        param += "&launch_success=" + launch_success;
+      }
+      if (!!land) {
+        param += "&land_success=" + land;
+      }
+      if (!!launch_year) {
+        param += "&launch_year=" + launch_year;
+      }
+
+      if (param.length > 0) {
+        param = "?" + param.slice(1);
+      }
+      this.props.history.replace(param);
     }
   }, {
     key: "render",
     value: function render() {
-      var _state = this.state,
-          limit = _state.limit,
-          launch_success = _state.launch_success,
-          launch_year = _state.launch_year,
-          result = _state.result;
+      var _this3 = this;
+
+      var _state4 = this.state,
+          limit = _state4.limit,
+          launch_success = _state4.launch_success,
+          land_success = _state4.land_success,
+          launch_year = _state4.launch_year,
+          result = _state4.result;
       var launch_list = this.props.launch_list;
 
       return _react2.default.createElement(
@@ -648,54 +834,22 @@ var HomePage = function (_Component) {
             _react2.default.createElement(
               "div",
               { className: "filterRow" },
-              _react2.default.createElement(
-                "div",
-                null,
-                _react2.default.createElement(
-                  "button",
-                  {
-                    className: launch_year == "2006" ? "activeFilterBtn" : "",
-                    onClick: this.changePage
-                  },
-                  "2006"
-                )
-              ),
-              _react2.default.createElement(
-                "div",
-                null,
-                _react2.default.createElement(
-                  "button",
-                  null,
-                  "2007"
-                )
-              ),
-              _react2.default.createElement(
-                "div",
-                null,
-                _react2.default.createElement(
-                  "button",
-                  null,
-                  "2008"
-                )
-              ),
-              _react2.default.createElement(
-                "div",
-                null,
-                _react2.default.createElement(
-                  "button",
-                  null,
-                  "2009"
-                )
-              ),
-              _react2.default.createElement(
-                "div",
-                null,
-                _react2.default.createElement(
-                  "button",
-                  null,
-                  "2010"
-                )
-              )
+              Array.from({ length: new Date().getFullYear() - 2006 + 1 }).map(function (itm, index) {
+                return _react2.default.createElement(
+                  "div",
+                  { key: index },
+                  _react2.default.createElement(
+                    "button",
+                    {
+                      className: launch_year == 2006 + index ? "activeFilterBtn" : "",
+                      onClick: function onClick() {
+                        return _this3.changeYearFilter(2006 + index);
+                      }
+                    },
+                    2006 + index
+                  )
+                );
+              })
             ),
             _react2.default.createElement(
               "h4",
@@ -710,7 +864,12 @@ var HomePage = function (_Component) {
                 null,
                 _react2.default.createElement(
                   "button",
-                  null,
+                  {
+                    onClick: function onClick() {
+                      return _this3.changeLaunchFilter("true");
+                    },
+                    className: launch_success == "true" ? "activeFilterBtn" : ""
+                  },
                   "True"
                 )
               ),
@@ -719,7 +878,12 @@ var HomePage = function (_Component) {
                 null,
                 _react2.default.createElement(
                   "button",
-                  null,
+                  {
+                    onClick: function onClick() {
+                      return _this3.changeLaunchFilter("false");
+                    },
+                    className: launch_success == "false" ? "activeFilterBtn" : ""
+                  },
                   "False"
                 )
               )
@@ -737,7 +901,12 @@ var HomePage = function (_Component) {
                 null,
                 _react2.default.createElement(
                   "button",
-                  null,
+                  {
+                    onClick: function onClick() {
+                      return _this3.changeLandFilter("true");
+                    },
+                    className: land_success == "true" ? "activeFilterBtn" : ""
+                  },
                   "True"
                 )
               ),
@@ -746,7 +915,12 @@ var HomePage = function (_Component) {
                 null,
                 _react2.default.createElement(
                   "button",
-                  null,
+                  {
+                    onClick: function onClick() {
+                      return _this3.changeLandFilter("false");
+                    },
+                    className: land_success == "false" ? "activeFilterBtn" : ""
+                  },
                   "False"
                 )
               )
@@ -867,7 +1041,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 15 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -887,8 +1061,22 @@ var getParamObj = exports.getParamObj = function getParamObj(paramString) {
   return result;
 };
 
+var throttle = exports.throttle = function throttle(fn) {
+  var delay = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 500;
+
+  var last = 0;
+  return function () {
+    debugger;
+    var now = new Date().getTime();
+    if (now - last < delay) {
+      return fn.apply(undefined, arguments);
+    }
+    last = now;
+  };
+};
+
 /***/ }),
-/* 16 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -921,7 +1109,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 17 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -935,7 +1123,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _server = __webpack_require__(18);
+var _server = __webpack_require__(21);
 
 var _reactRouterDom = __webpack_require__(2);
 
@@ -943,11 +1131,11 @@ var _reactRedux = __webpack_require__(3);
 
 var _reactRouterConfig = __webpack_require__(1);
 
-var _serializeJavascript = __webpack_require__(19);
+var _serializeJavascript = __webpack_require__(22);
 
 var _serializeJavascript2 = _interopRequireDefault(_serializeJavascript);
 
-var _reactHelmet = __webpack_require__(20);
+var _reactHelmet = __webpack_require__(6);
 
 var _Routes = __webpack_require__(5);
 
@@ -973,29 +1161,23 @@ exports.default = function (req, store) {
   ));
 
   var helmet = _reactHelmet.Helmet.renderStatic();
-  return "\n    <html>\n    <head>\n    " + helmet.title.toString() + "\n    " + helmet.meta.toString() + "\n    </head>\n    <body>\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />\n    <div id=\"root\">" + content + "</div>\n    <script>\n    window.INITIAL_STATE = " + (0, _serializeJavascript2.default)(store.getState()) + "\n    </script>\n    <script src=\"bundle.js\"></script>\n    </body>\n    </html>\n    ";
+  return "\n    <html>\n    <head>\n    " + helmet.title.toString() + "\n    " + helmet.meta.toString() + "\n    <link rel=\"icon\" href=\"favicon.ico\" />\n    </head>\n    <body>\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />\n    <div id=\"root\">" + content + "</div>\n    <script>\n    window.INITIAL_STATE = " + (0, _serializeJavascript2.default)(store.getState()) + "\n    </script>\n    <script src=\"bundle.js\"></script>\n    </body>\n    </html>\n    ";
 };
 
 /***/ }),
-/* 18 */
+/* 21 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dom/server");
 
 /***/ }),
-/* 19 */
+/* 22 */
 /***/ (function(module, exports) {
 
 module.exports = require("serialize-javascript");
 
 /***/ }),
-/* 20 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-helmet");
-
-/***/ }),
-/* 21 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1005,17 +1187,17 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _redux = __webpack_require__(7);
+var _redux = __webpack_require__(8);
 
-var _reduxThunk = __webpack_require__(22);
+var _reduxThunk = __webpack_require__(24);
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-var _axios = __webpack_require__(6);
+var _axios = __webpack_require__(7);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _index = __webpack_require__(23);
+var _index = __webpack_require__(25);
 
 var _index2 = _interopRequireDefault(_index);
 
@@ -1033,13 +1215,13 @@ exports.default = function (req) {
 };
 
 /***/ }),
-/* 22 */
+/* 24 */
 /***/ (function(module, exports) {
 
 module.exports = require("redux-thunk");
 
 /***/ }),
-/* 23 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1049,20 +1231,25 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _redux = __webpack_require__(7);
+var _redux = __webpack_require__(8);
 
-var _spaceXLaunchReducer = __webpack_require__(24);
+var _spaceXLaunchReducer = __webpack_require__(26);
 
 var _spaceXLaunchReducer2 = _interopRequireDefault(_spaceXLaunchReducer);
+
+var _commonReducer = __webpack_require__(27);
+
+var _commonReducer2 = _interopRequireDefault(_commonReducer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = (0, _redux.combineReducers)({
-  spaceXLaunch: _spaceXLaunchReducer2.default
+  spaceXLaunch: _spaceXLaunchReducer2.default,
+  common: _commonReducer2.default
 });
 
 /***/ }),
-/* 24 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1087,6 +1274,37 @@ exports.default = function () {
   switch (action.type) {
     case _index.MODIFY_SPACE_X_LAUNCH_DATA:
       return _extends({}, state, action.payload);
+    default:
+      return state;
+  }
+};
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _index = __webpack_require__(4);
+
+var INITIAL_COMMON_STATE = {
+  loader: false
+};
+
+exports.default = function () {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : INITIAL_COMMON_STATE;
+  var action = arguments[1];
+
+  switch (action.type) {
+    case _index.SET_LOADER:
+      return _extends({}, state, { loader: action.payload });
     default:
       return state;
   }

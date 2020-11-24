@@ -1,54 +1,166 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+
 import { getParamObj } from "./../../helpers/helpers";
 import { fetchSpaceXLaunch, fetchSpaceXLaunchClient } from "./../actions";
 
 class HomePage extends Component {
   constructor(props) {
     super(props);
-    this.changePage = this.changePage.bind(this);
+    this.changeYearFilter = this.changeYearFilter.bind(this);
     this.state = {
       limit: 10,
       launch_success: null,
       land_success: null,
       launch_year: null,
+      search: null,
+      successful_launch: null,
+      successful_landing: null,
     };
   }
 
   componentDidMount() {
+    this.loadDataFromParam();
+  }
+
+  componentDidUpdate() {
+    if (this.props.location.search !== this.state.search) {
+      this.loadDataFromParam();
+    }
+  }
+
+  loadDataFromParam() {
     let limit = 10;
     let launch_success = null;
     let land_success = null;
     let launch_year = null;
     let result = getParamObj(this.props.location.search);
-    let param = "?";
+    let param = "";
     if (!!result.limit) {
       limit = result.limit;
-      param += "limit=" + limit;
+      param += "&limit=" + limit;
     }
     if (!!result.launch_success) {
       launch_success = result.launch_success;
-      param += "launch_success=" + launch_success;
+      param += "&launch_success=" + launch_success;
     }
     if (!!result.land_success) {
       land_success = result.land_success;
-      param += "land_success=" + land_success;
+      param += "&land_success=" + land_success;
     }
     if (!!result.launch_year) {
       launch_year = result.launch_year;
-      param += "launch_year=" + launch_year;
+      param += "&launch_year=" + launch_year;
     }
 
-    this.setState({ limit, launch_success, launch_year, result });
+    if (param.length > 0) {
+      param = "?" + param.slice(1);
+    }
 
-    this.props.fetchSpaceXLaunchClient(param);
+    this.props.fetchSpaceXLaunchClient(param).finally(() => {
+      this.setState({
+        limit,
+        launch_success,
+        launch_year,
+        land_success,
+        search: this.props.location.search,
+      });
+    });
   }
 
-  changePage() {
-    this.props.history.push("?s=7");
+  changeYearFilter(year) {
+    const {
+      limit,
+      launch_success,
+      land_success,
+      launch_year,
+      result,
+    } = this.state;
+    let param = "";
+    if (!!limit) {
+      param += "&limit=" + limit;
+    }
+    if (!!launch_success) {
+      param += "&launch_success=" + launch_success;
+    }
+    if (!!land_success) {
+      param += "&land_success=" + land_success;
+    }
+    if (!!year) {
+      param += "&launch_year=" + year;
+    }
+
+    if (param.length > 0) {
+      param = "?" + param.slice(1);
+    }
+    this.props.history.replace(param);
   }
+
+  changeLaunchFilter(launch) {
+    const {
+      limit,
+      launch_success,
+      land_success,
+      launch_year,
+      result,
+    } = this.state;
+    let param = "";
+    if (!!limit) {
+      param += "&limit=" + limit;
+    }
+    if (!!launch) {
+      param += "&launch_success=" + launch;
+    }
+    if (!!land_success) {
+      param += "&land_success=" + land_success;
+    }
+    if (!!launch_year) {
+      param += "&launch_year=" + launch_year;
+    }
+
+    if (param.length > 0) {
+      param = "?" + param.slice(1);
+    }
+    this.props.history.replace(param);
+  }
+
+  changeLandFilter(land) {
+    const {
+      limit,
+      launch_success,
+      land_success,
+      launch_year,
+      result,
+    } = this.state;
+    debugger;
+    let param = "";
+    if (!!limit) {
+      param += "&limit=" + limit;
+    }
+    if (!!launch_success) {
+      param += "&launch_success=" + launch_success;
+    }
+    if (!!land) {
+      param += "&land_success=" + land;
+    }
+    if (!!launch_year) {
+      param += "&launch_year=" + launch_year;
+    }
+
+    if (param.length > 0) {
+      param = "?" + param.slice(1);
+    }
+    this.props.history.replace(param);
+  }
+
   render() {
-    const { limit, launch_success, launch_year, result } = this.state;
+    const {
+      limit,
+      launch_success,
+      land_success,
+      launch_year,
+      result,
+    } = this.state;
     const { launch_list } = this.props;
     return (
       <div className="pageContent">
@@ -57,45 +169,57 @@ class HomePage extends Component {
             <h3>Filters</h3>
             <h4>Launch Year</h4>
             <div className="filterRow">
-              <div>
-                {/* <Link to="/?a=8"> */}
-                <button
-                  className={launch_year == "2006" ? "activeFilterBtn" : ""}
-                  onClick={this.changePage}
-                >
-                  2006
-                </button>
-                {/* </Link> */}
-              </div>
-              <div>
-                <button>2007</button>
-              </div>
-              <div>
-                <button>2008</button>
-              </div>
-              <div>
-                <button>2009</button>
-              </div>
-              <div>
-                <button>2010</button>
-              </div>
+              {Array.from({ length: new Date().getFullYear() - 2006 + 1 }).map(
+                (itm, index) => (
+                  <div key={index}>
+                    <button
+                      className={
+                        launch_year == 2006 + index ? "activeFilterBtn" : ""
+                      }
+                      onClick={() => this.changeYearFilter(2006 + index)}
+                    >
+                      {2006 + index}
+                    </button>
+                  </div>
+                )
+              )}
             </div>
             <h4>Successful Launch</h4>
             <div className="filterRow">
               <div>
-                <button>True</button>
+                <button
+                  onClick={() => this.changeLaunchFilter("true")}
+                  className={launch_success == "true" ? "activeFilterBtn" : ""}
+                >
+                  True
+                </button>
               </div>
               <div>
-                <button>False</button>
+                <button
+                  onClick={() => this.changeLaunchFilter("false")}
+                  className={launch_success == "false" ? "activeFilterBtn" : ""}
+                >
+                  False
+                </button>
               </div>
             </div>
             <h4>Successful Landing</h4>
             <div className="filterRow">
               <div>
-                <button>True</button>
+                <button
+                  onClick={() => this.changeLandFilter("true")}
+                  className={land_success == "true" ? "activeFilterBtn" : ""}
+                >
+                  True
+                </button>
               </div>
               <div>
-                <button>False</button>
+                <button
+                  onClick={() => this.changeLandFilter("false")}
+                  className={land_success == "false" ? "activeFilterBtn" : ""}
+                >
+                  False
+                </button>
               </div>
             </div>
           </div>

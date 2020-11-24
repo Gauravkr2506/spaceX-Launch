@@ -11,3 +11,15 @@ export const getParamObj = (paramString) => {
 
   return result;
 };
+
+export const throttle = (fn, delay = 500) => {
+  let last = 0;
+  return (...args) => {
+    debugger;
+    const now = new Date().getTime();
+    if (now - last < delay) {
+      return fn(...args);
+    }
+    last = now;
+  };
+};

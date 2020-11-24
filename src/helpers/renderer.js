@@ -23,6 +23,7 @@ export default (req, store, context = {}) => {
     <head>
     ${helmet.title.toString()}
     ${helmet.meta.toString()}
+    <link rel="icon" href="favicon.ico" />
     </head>
     <body>
     <link rel="stylesheet" type="text/css" href="style.css" />
