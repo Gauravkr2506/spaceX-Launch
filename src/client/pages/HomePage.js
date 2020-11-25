@@ -256,12 +256,15 @@ class HomePage extends Component {
                     <label>Launch Year : </label> {mission.launch_year}
                   </div>
                   <div className="data">
-                    <label>Successful Launch : </label>{" "}
-                    {mission.launch_success ? "True" : "False"}
+                    <label>Successful Launch : </label>
+                    {mission.launch_success ? " True" : " False"}
                   </div>
 
                   <div className="data">
                     <label>Successful Landing : </label>
+                    {mission.rocket.first_stage.cores[0].land_success
+                      ? " True"
+                      : " False"}
                   </div>
                 </div>
               </div>
