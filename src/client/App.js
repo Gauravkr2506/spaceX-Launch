@@ -4,6 +4,7 @@ import { renderRoutes } from "react-router-config";
 
 import Header from "./components/Header";
 import Loader from "./components/Loader";
+import Footer from "./components/Footer";
 
 function App({ route }) {
   const head = () => {
@@ -35,8 +36,8 @@ function App({ route }) {
       {head()}
       <Header />
       <Loader />
-
       {renderRoutes(route.routes)}
+      <Footer />
     </div>
   );
 }

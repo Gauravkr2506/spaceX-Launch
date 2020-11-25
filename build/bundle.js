@@ -377,6 +377,10 @@ var _Loader = __webpack_require__(15);
 
 var _Loader2 = _interopRequireDefault(_Loader);
 
+var _Footer = __webpack_require__(27);
+
+var _Footer2 = _interopRequireDefault(_Footer);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function App(_ref) {
@@ -414,7 +418,8 @@ function App(_ref) {
     head(),
     _react2.default.createElement(_Header2.default, null),
     _react2.default.createElement(_Loader2.default, null),
-    (0, _reactRouterConfig.renderRoutes)(route.routes)
+    (0, _reactRouterConfig.renderRoutes)(route.routes),
+    _react2.default.createElement(_Footer2.default, null)
   );
 }
 
@@ -1200,6 +1205,37 @@ exports.default = function () {
       return state;
   }
 };
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = Footer;
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function Footer() {
+  return _react2.default.createElement(
+    "div",
+    { className: "footer" },
+    _react2.default.createElement(
+      "span",
+      null,
+      "Developed By: "
+    ),
+    "Gaurav"
+  );
+}
 
 /***/ })
 /******/ ]);

@@ -121,7 +121,7 @@ h2 {
   margin-left: 20px;
 }
 
-/* loader*/
+/*loader*/
 .loader {
   display: flex;
   justify-content: center;
@@ -135,6 +135,22 @@ h2 {
   right: 0;
   font-size: 40px;
   color: green;
+}
+/*Footer*/
+.footer {
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  padding-top: 30px;
+  padding-bottom: 20px;
+  font-size: medium;
+}
+
+.footer span {
+  font-size: medium;
+  font-weight: bold;
+  color: rgb(31, 30, 30);
 }
 
 /*tablet view*/
